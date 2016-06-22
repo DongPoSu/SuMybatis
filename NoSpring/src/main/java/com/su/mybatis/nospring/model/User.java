@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
  * @Date: 2016/06/12
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Log4j2
 @Data
 @ToString

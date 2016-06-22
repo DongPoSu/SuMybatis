@@ -2,7 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.su.mybatis.nospring.dao.UserMapper">
-    <select id="getUserByID" parameterType="int" resultType="User">
-        SELECT * FROM `user` WHERE id = #{id}
+
+    <resultMap id="User" type="com.su.mybatis.nospring.model.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="dept" property="dept" jdbcType="VARCHAR"/>
+        <result column="website" property="website" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getUserByID" parameterType="java.lang.Integer" resultMap="User">
+        SELECT * FROM `user` WHERE id = #{id,jdbcType=INTEGER};
+    </select>
+    
+    <select id="getUserList" resultMap="User">
+      SELECT * FROM `user`;
+    </select>
+
+    <insert id="insertUser" parameterType="com.su.mybatis.nospring.model.User" >
+        INSERT INTO `user` (id,`name`,dept,website,phone) VALUES (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{dept,jdbcType=VARCHAR},#{website,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR});
+    </insert>
+
+    <update id="updateUser" parameterType="com.su.mybatis.nospring.model.User">
+        UPDATE `user` SET `name`=#{name,jdbcType=VARCHAR},dept=#{dept,jdbcType=VARCHAR},website=#{website,jdbcType=VARCHAR},phone=#{phone,jdbcType=VARCHAR} WHERE id=#{id,jdbcType=INTEGER};
+    </update>
+    <delete id="deleteUser"  parameterType="java.lang.Integer">
+      DELETE FROM `user` WHERE id=#{id,jdbcType=INTEGER};
+    </delete>
+    <select id="getUser" resultMap="User">
+        SELECT * FROM `user` WHERE id=#{id,jdbcType=INTEGER};
     </select>
 </mapper>
